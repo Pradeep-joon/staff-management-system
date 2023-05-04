@@ -1,10 +1,11 @@
 import Header from "./components/Header";
+import { useState } from "react";
 import Banner from "./components/Banner";
 import Registration from "./components/Registration";
 import Bflogin from "./components/Bflogin";
-import About from "./components/About";
 import Login from "./components/Login";
-import Logout from "./components/Logout";
+import About from "./components/About";
+
 
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -12,44 +13,27 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
-  const {  isAuthenticated} = useAuth0();
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const handleLogin = ({ username, password }) => {
-    // TODO: Call API to authenticate user
-    setIsLoggedIn(true);
-  };
-
-  const handleLogout = () => {
-    // TODO: Call API to logout user
-    setIsLoggedIn(false);
-  };
   return (
     
 
     <>
 
-<Router>
-      <div className="App">
-        <Switch>
-          <Route exact path="/">
-            {isLoggedIn ? (
-              <Logout onLogout={handleLogout} />
-            ) : (
-              <Login onLogin={handleLogin} />
-            )}
-          </Route>
-        </Switch>
-      </div>
-    </Router>
     
-        <Router>
-        <Routes>
-        { isAuthenticated ? ( <Route exact path="/home" element={
+    <Router>
+      <Routes>
+      <Route exact path="" element={
             <>
                <Header/>
-               <Banner/>
+               <Bflogin/>
+               
+            </>
+          }>
+          </Route> &&
+          <Route exact path="/home" element={
+            <>
+               <Header/>
+               <Bflogin/>
                
             </>
           }>
@@ -65,26 +49,16 @@ function App() {
                   <About />
               </>
               }>
-              </Route>
-          
-            
-            ) : (
-        
-          
-          <Route exact path="" element={
+              </Route> &&
+          <Route exact path="/LLogin" element={
             <>
                <Header/>
-               <Bflogin/>
+               <Login/>
                
             </>
-        }>
-            </Route>
-          )}
+          }>
+          </Route>
 
-
-          
-
-           
           
         </Routes>
 

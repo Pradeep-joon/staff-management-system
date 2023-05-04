@@ -43,8 +43,12 @@ export default function Header() {
               <a href = "/contact">Contact</a>
                 
             </li>
+            <li className='hover:text-green-600 focus:outline-text'>
+              <a href = "/LLogin">Login</a>
+                
+            </li>
       
-      {/* Authentication Part via Auth0 */}
+      {/* Authentication Part via Auth0
            
             { isAuthenticated && (
               <li>
@@ -66,7 +70,7 @@ export default function Header() {
             Log in
            </button>
            </li>
-            )} 
+            )}  */}
         </ul>
 
         {/* Responsive Menu*/}

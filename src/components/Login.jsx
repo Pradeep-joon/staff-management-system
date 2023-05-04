@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import signin_user from "../firebase";
 
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState("");
@@ -37,6 +38,7 @@ const Login = ({ onLogin }) => {
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
+            <br></br>
             <div>
               <label htmlFor="password" className="sr-only">
                 Password
@@ -82,7 +84,8 @@ const Login = ({ onLogin }) => {
           </div>
 
           <div>
-            <button
+            <button onClick={
+              signin_user({username, password})}
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg
               indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -108,4 +111,5 @@ const Login = ({ onLogin }) => {
           </form>
         </div>
       </div>
-      
+  )}
+  export default Login;
