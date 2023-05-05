@@ -1,9 +1,12 @@
 import React,{useState} from "react";
 import Typed from 'react-typed'
-import { collection, addDoc, Firestore } from "firebase/firestore";
-import {db} from '../firebase';
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../firebase";
+
+
 
 export default function Addemployeedetail (){
+
     const [employeeDetail , setemployeeDetail] = useState({
         employeeName:"",
         employeeid:"",
@@ -49,15 +52,16 @@ export default function Addemployeedetail (){
 
         setemployeeDetail({...employeeDetail, [name] : value});
     }
+
+    
      
-    const handlesubmit = (e) =>{
+    const handlesubmit = (e) => {
         e.preventDefault();
+        
+        
         // const newRecord = {...employeeDetail, id : new Date().getTime().toString()}
         // setRecords([...records, newRecord]);
-        Firestore.collection("users").add({
-            Name: employeeDetail.employeeName,
-            AId: employeeDetail.employeeid
-        });
+        
         // const newRecord = {...employeeDetail, id : new Date().getTime().toString()}
         // console.log(records);
         // setRecords([...records, newRecord]);
@@ -82,7 +86,17 @@ export default function Addemployeedetail (){
             setemployeeContactError("");
             setemployeeFieldError("");
             setemployeeBranchError("");
+            const docRef =  addDoc(collection(db, "Users"), {
+                name: employeeDetail.employeeName,
+                Id: employeeDetail.employeeid,
+                Email: employeeDetail.employeeEmail,
+                Contact: employeeDetail.employeeContact,
+                Field: employeeDetail.employeeField,
+                Branch: employeeDetail.employeeBranch
+              });
+              console.log("Document written with ID: ", docRef.id);
         }
+        
     }
 
       
