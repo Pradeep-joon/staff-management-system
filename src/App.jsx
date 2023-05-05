@@ -57,6 +57,14 @@ function App() {
                
             </>
           }>
+          </Route> &&
+          <Route exact path="/banner" element={
+            <>
+               <Header/>
+               <Banner/>
+               
+            </>
+          }>
           </Route>
 
           

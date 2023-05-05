@@ -1,8 +1,10 @@
 import firebase from "firebase/app";
+import {initializeApp} from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
+import {getFirestore} from'firebase/firestore';
 import 'firebase/firestore'; 
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 
 
 const firebaseConfig = {
@@ -12,23 +14,15 @@ const firebaseConfig = {
     storageBucket: "staff-management-system-wault.appspot.com",
     messagingSenderId: "860932610420",
     appId: "1:860932610420:web:e487666c0088414a27b421"
-  };
+};
 
 // Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
 
+export const auth = getAuth(app);
 
-export default function signin_user({ username, password })
-{
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, username, password)
-      .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
-}
+
+export default app;
+// export const db = getFirestore(app);
+// export default db;

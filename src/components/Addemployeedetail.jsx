@@ -1,15 +1,19 @@
 import React,{useState} from "react";
 import Typed from 'react-typed'
+import { collection, addDoc, Firestore } from "firebase/firestore";
+import {db} from '../firebase';
 
 export default function Addemployeedetail (){
     const [employeeDetail , setemployeeDetail] = useState({
         employeeName:"",
+        employeeid:"",
         employeeEmail:"",
         employeeContact:"",  
         employeeField:"", 
         employeeBranch:"",
     })
     const[employeeNameError,setemployeeNameError] = useState("");
+    const[employeeidError,setemployeeidError] = useState("");
     const[employeeEmailError,setemployeeEmailError] = useState("");
     const[employeeContactError,setemployeeContactError] = useState("");
     const[employeeFieldError,setemployeeFieldError] = useState("");
@@ -20,6 +24,9 @@ export default function Addemployeedetail (){
         const errors = {}
         if(employeeDetail.employeeName ==="")
         errors.employeeName= "Employee Name is required";
+
+        if(employeeDetail.employeeid ==="")
+        errors.employeeid= "Employee id is required";
 
         if(employeeDetail.employeeEmail ==="")
         errors.employeeEmail= "Email  is required";
@@ -35,7 +42,7 @@ export default function Addemployeedetail (){
 
         return Object.keys(errors).length === 0 ? null : errors;
     }
-    const [records, setRecords] = useState([]);
+    // const [records, setRecords] = useState([]);
     const handleInput = (e) => {
         const name = e.target.name;
         const value = e.target.value;
@@ -45,24 +52,32 @@ export default function Addemployeedetail (){
      
     const handlesubmit = (e) =>{
         e.preventDefault();
-        const newRecord = {...employeeDetail, id : new Date().getTime().toString()}
-        console.log(records);
-        setRecords([...records, newRecord]);
-        console.log(records);
+        // const newRecord = {...employeeDetail, id : new Date().getTime().toString()}
+        // setRecords([...records, newRecord]);
+        Firestore.collection("users").add({
+            Name: employeeDetail.employeeName,
+            AId: employeeDetail.employeeid
+        });
+        // const newRecord = {...employeeDetail, id : new Date().getTime().toString()}
+        // console.log(records);
+        // setRecords([...records, newRecord]);
+        // console.log(records);
        
-       setemployeeDetail({employeeName:"",employeeEmail:"",employeeContact:"",employeeField:"",employeeBranch:""});
+       setemployeeDetail({employeeName:"",employeeid:"", employeeEmail:"",employeeContact:"",employeeField:"",employeeBranch:""});
 
         const errors = validate();
 
         if(errors){
             setemployeeNameError(errors.employeeName);
+            setemployeeidError(errors.employeeid);
             setemployeeEmailError(errors.employeeEmail);
             setemployeeContactError(errors.employeeContact); 
             setemployeeFieldError(errors.employeeField); 
             setemployeeBranchError(errors.employeeBranch);
         }
-        else{
+        else {
             setemployeeNameError("");
+            setemployeeidError("");
             setemployeeEmailError("");
             setemployeeContactError("");
             setemployeeFieldError("");
@@ -70,25 +85,32 @@ export default function Addemployeedetail (){
         }
     }
 
+      
+
 
     return(
        <div className="flex flex-col justify-center  items-center bg-black w-full py-[88px] ">
          <div className=" p-5 text-[30px] md:text-[50px] text-white">
              
          <Typed 
-             strings={['Add Employee Details ']}
+             strings={['Employee Registration ',' New Employee!']}
                       typeSpeed={100}
                       loop={true}
                       backSpeed ={50}
                     />
           </div>
         
-        <form onSubmit={handlesubmit}>
+         <form onSubmit={handlesubmit}>
            
             <div className = "m-4">
                 <label className="mr-12 text-white" htmlFor="employeeName" > Name</label>
-                <input onChange={handleInput} className ="border border- black rounded-md" placeholder="Enter the Employeename " autoComplete="off" name="employeeName" value = {employeeDetail.employeeName} id ="employeeName" type="text"/>
+                <input onChange={handleInput} className ="border border- black rounded-md" placeholder="Enter the Employee name " autoComplete="off" name="employeeName" value = {employeeDetail.employeeName} id ="employeeName" type="text"/>
                 <div className="text-red-500 text-sm">{employeeNameError}</div>
+            </div>
+            <div className = "m-4">
+                <label className="mr-12 text-white" htmlFor="employeeid" > ID No.</label>
+                <input onChange={handleInput} className ="border border- black rounded-md" placeholder="Aadhar No. " autoComplete="off" name="employeeid" value = {employeeDetail.employeeid} id ="employeeid" type="text"/>
+                <div className="text-red-500 text-sm">{employeeidError}</div>
             </div>
             <div className = "m-4">
                 <label className = "mr-11 text-white" htmlFor="employeeEmail">E-mail</label>
@@ -118,4 +140,4 @@ export default function Addemployeedetail (){
         </form>
        </div>
     )
-}
+    }

@@ -1,15 +1,35 @@
 import React, { useState } from "react";
-import signin_user from "../firebase";
+import {  signInWithEmailAndPassword   } from 'firebase/auth';
+import { auth } from '../firebase';
+import { NavLink, useNavigate } from 'react-router-dom'
 
-const Login = ({ onLogin }) => {
+const Login = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const onLogin = (e) => {
     e.preventDefault();
-    // TODO: Call API to authenticate user
-    onLogin({ username, password });
-  };
+    signInWithEmailAndPassword(auth, username, password)
+    .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        navigate("/banner");
+        console.log(user);
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage)
+    });
+   
+}
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   // TODO: Call API to authenticate user
+  //   onLogin({ username, password });
+  // };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
@@ -19,7 +39,7 @@ const Login = ({ onLogin }) => {
             Sign in to your account
           </h2>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+        <form className="mt-8 space-y-6" onSubmit={onLogin}>
           <input type="hidden" name="remember" defaultValue="true" />
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
@@ -84,8 +104,7 @@ const Login = ({ onLogin }) => {
           </div>
 
           <div>
-            <button onClick={
-              signin_user({username, password})}
+            <button onClick={onLogin}
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg
               indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
