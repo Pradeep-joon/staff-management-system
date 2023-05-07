@@ -7,7 +7,6 @@ import Login from "./components/Login";
 import About from "./components/About";
 
 
-import { useAuth0 } from "@auth0/auth0-react";
 
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
