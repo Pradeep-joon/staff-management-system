@@ -2,11 +2,17 @@ import React,{useState} from "react";
 import Typed from 'react-typed'
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import {useLocation} from 'react-router-dom';
 
 
 
 export default function Addemployeedetail (){
 
+        const location = useLocation();
+            console.log(location.state.cuser_id);
+            const currentuserid = location.state.cuser_id;
+            const currentusermail = location.state.cusermail;
+    
     const [employeeDetail , setemployeeDetail] = useState({
         employeeName:"",
         employeeid:"",
@@ -86,15 +92,21 @@ export default function Addemployeedetail (){
             setemployeeContactError("");
             setemployeeFieldError("");
             setemployeeBranchError("");
+            
+
             const docRef =  addDoc(collection(db, "Users"), {
                 name: employeeDetail.employeeName,
-                Id: employeeDetail.employeeid,
+                Aadhar_No: employeeDetail.employeeid,
                 Email: employeeDetail.employeeEmail,
                 Contact: employeeDetail.employeeContact,
-                Field: employeeDetail.employeeField,
-                Branch: employeeDetail.employeeBranch
+                Date_of_joining: employeeDetail.employeeField,
+                Role: employeeDetail.employeeBranch,
+                CompanyId: currentuserid,
+                Companymail: currentusermail,
+                Status: "Ongoing"
               });
               console.log("Document written with ID: ", docRef.id);
+            //   console.log(currentuserid);
         }
         
     }
@@ -117,36 +129,36 @@ export default function Addemployeedetail (){
          <form onSubmit={handlesubmit}>
            
             <div className = "m-4">
-                <label className="mr-12 text-white" htmlFor="employeeName" > Name</label>
-                <input onChange={handleInput} className ="border border- black rounded-md" placeholder="Enter the Employee name " autoComplete="off" name="employeeName" value = {employeeDetail.employeeName} id ="employeeName" type="text"/>
+                <label className="mr-11 text-white" htmlFor="employeeName" > Name</label>
+                <input onChange={handleInput} className ="border border- black rounded-md" placeholder=" Employee name " autoComplete="off" name="employeeName" value = {employeeDetail.employeeName} id ="employeeName" type="text"/>
                 <div className="text-red-500 text-sm">{employeeNameError}</div>
             </div>
             <div className = "m-4">
-                <label className="mr-12 text-white" htmlFor="employeeid" > ID No.</label>
+                <label className="mr-8 text-white" htmlFor="employeeid" > Aadhar </label>
                 <input onChange={handleInput} className ="border border- black rounded-md" placeholder="Aadhar No. " autoComplete="off" name="employeeid" value = {employeeDetail.employeeid} id ="employeeid" type="text"/>
                 <div className="text-red-500 text-sm">{employeeidError}</div>
             </div>
             <div className = "m-4">
-                <label className = "mr-11 text-white" htmlFor="employeeEmail">E-mail</label>
-                <input onChange={handleInput} className ="border border- black rounded-md " placeholder="Enter the E-mail" autoComplete="off" name="employeeEmail" value = {employeeDetail.employeeEmail} id ="employeeEmail" type="text"/>
+                <label className = "mr-11 text-white align-content:space-evenly" htmlFor="employeeEmail">E-mail</label>
+                <input onChange={handleInput} className ="border border- black rounded-md " placeholder=" E-mail" autoComplete="off" name="employeeEmail" value = {employeeDetail.employeeEmail} id ="employeeEmail" type="text"/>
                 <div className="text-red-500 text-sm">{employeeEmailError}</div>
             </div>
             <div className = "m-4">
-                <label className = "mr-8 text-white"htmlFor="employeeContact">Contact</label>
-                <input onChange={handleInput} className ="border border- black rounded-md " placeholder="Enter the Contact No." autoComplete="off" name="employeeContact" value = {employeeDetail.employeeContact} id ="employeeContact" type="text"/>
+               <label className = "mr-8 text-white"htmlFor="employeeContact">Contact</label>
+                <input onChange={handleInput} className ="border border- black rounded-md " placeholder=" Contact No." autoComplete="off" name="employeeContact" value = {employeeDetail.employeeContact} id ="employeeContact" type="text"/>
                 <div className="text-red-500 text-sm">{employeeContactError}</div>
             </div>
-            <div className = "m-5">
-                <label className = "mr-12 text-white"htmlFor="employeeField">Field</label>
-                <input onChange={handleInput} className ="border border- black rounded-md " placeholder="Field of Employee " autoComplete="off" name = "employeeField"value = {employeeDetail.employeeField} id ="employeeField" type="text"/>
+            <div className = "m-4 ">
+                <label className = "mr-10 text-white"htmlFor="employeeField">D.O.J.</label>
+                <input onChange={handleInput} className ="border border- black rounded-md " placeholder="Joining date  " autoComplete="off" name = "employeeField"value = {employeeDetail.employeeField} id ="employeeField" type="text"/>
                 <div className="text-red-500 text-sm">{employeeFieldError}</div>
             </div>
-            <div className = "m -5">
-                <label className = "mr-12 text-white"htmlFor="employeeBranch">Branch</label>
-                <input onChange={handleInput} className ="border border- black rounded-md " placeholder="Enter the Branch " autoComplete="off" name="employeeBranch" value = {employeeDetail.employeeBranch} id ="employeeBranch" type="text"/>
+            <div className = "m-4">
+                <label className = "mr-12 text-white"htmlFor="employeeBranch">Role </label>
+                <input onChange={handleInput} className ="border border- black rounded-md " placeholder="Role of Employee " autoComplete="off" name="employeeBranch" value = {employeeDetail.employeeBranch} id ="employeeBranch" type="text"/>
                 <div className="text-red-500 text-sm">{employeeBranchError}</div>
             </div>
-            <div className="flex justify center my-5">
+            <div className="flex justify center my-7">
                 <button type="submit" className="bg-red-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                     Add 
                 </button>

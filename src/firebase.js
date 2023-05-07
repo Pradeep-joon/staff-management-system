@@ -23,6 +23,10 @@ export const auth = getAuth(app);
 
 export const db = getFirestore(app);
 
+export const db1 = getFirestore(app);
+
+
+
 
 
 // export default app;

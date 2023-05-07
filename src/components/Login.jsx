@@ -1,20 +1,26 @@
 import React, { useState } from "react";
 import {  signInWithEmailAndPassword   } from 'firebase/auth';
 import { auth } from '../firebase';
-import { NavLink, useNavigate } from 'react-router-dom'
-
+import { useNavigate } from 'react-router-dom'
+let cuserid;
+let cusermail;
 const Login = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  
 
   const onLogin = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, username, password)
     .then((userCredential) => {
         // Signed in
-        const user = userCredential.user;
-        navigate("/banner");
+        const user = userCredential.user
+        navigate("/banner", {
+          state :{ cuser_id: user.uid, cusermail: user.email, logincheck: true}
+        })
+      
+
         console.log(user);
     })
     .catch((error) => {
@@ -22,7 +28,6 @@ const Login = () => {
         const errorMessage = error.message;
         console.log(errorCode, errorMessage)
     });
-   
 }
 
   // const handleSubmit = (e) => {
@@ -132,3 +137,4 @@ const Login = () => {
       </div>
   )}
   export default Login;
+  export const  currentuserid = cuserid;
