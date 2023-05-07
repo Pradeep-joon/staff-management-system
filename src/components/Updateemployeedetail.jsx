@@ -7,28 +7,31 @@ import { db } from "../firebase";
 // import { doc, getDoc } from "firebase/firestore";
 // import { collection, getDocs } from "firebase/firestore";
 import { collection, query, where, getDocs } from "firebase/firestore";
+import { useState } from 'react';
 
 let searchvalue;
+let fdmail;
 export default function Updateemployeedetail (){
     
     const location = useLocation();
         console.log(location.state.cuser_id);
         const currentuserid = location.state.cuser_id;
         // const currentusermail = location.state.cusermail;
-        // const [info , setInfo] = useState([]);
-        // const tests = (e) =>{
-        //     console.log("Hurray");
-        // }
+        const [info , setInfo] = useState([]);
+        const tests = (e) =>{
+            console.log("Hurray");
+        }
 
 
         const fetch = async()=>
          {
-            const q = query(collection(db, "Users"), where("CompanyId", "==", currentuserid), where("Status", "in", ["ongoing", "Notice"]) ,where("Aadhar_No", "==", searchvalue));
+            const q = query(collection(db, "Users"), where("CompanyId", "==", currentuserid), where("Status", "in", ["Ongoing", "Notice"]) ,where("Aadhar_No", "==", searchvalue));
             const querySnapshot = await getDocs(q);
             querySnapshot.forEach((doc) => {
                 // doc.data() is never undefined for query doc snapshots
                 console.log(doc.id, " => ", doc.data());
-                // var data = doc.data();
+                var data = doc.data();
+                setemployeeDetail.employeeName(data.name);
                 // setInfo(arr => [...arr , data]);
                 // console.log(doc.data.name);
             });
@@ -43,13 +46,13 @@ export default function Updateemployeedetail (){
         } 
 
 
-    // const [employeeDetail , setemployeeDetail] = useState({
-    //     employeeName:"",
-    //     employeeEmail:"",
-    //     employeeContact:"",  
-    //     employeeid:"", 
-    //     employeeBranch:"",
-    // })
+    const [employeeDetail , setemployeeDetail] = useState({
+        employeeName:"",
+        employeeEmail:"",
+        employeeContact:"",  
+        employeeid:"", 
+        employeeBranch:"",
+    })
     // const[employeeNameError,setemployeeNameError] = useState("");
     // const[employeeEmailError,setemployeeEmailError] = useState("");
     // const[employeeContactError,setemployeeContactError] = useState("");
@@ -76,43 +79,43 @@ export default function Updateemployeedetail (){
 
     //     return Object.keys(errors).length === 0 ? null : errors;
     // }
-    // const [records, setRecords] = useState([]);
-    // const handleInput = (e) => {
-    //     const name = e.target.name;
-    //     const value = e.target.value;
+    const [records, setRecords] = useState([]);
+    const handleInput = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
 
-    //     setemployeeDetail({...employeeDetail, [name] : value});
-    // }
+        setemployeeDetail({...employeeDetail, [name] : value});
+    }
 
    
      
      
-    // const handlesubmit1 = (e) =>{
-    //     e.preventDefault();
-    //     const newRecord = {...employeeDetail, id : new Date().getTime().toString()}
-    //     console.log(records);
-    //     setRecords([...records, newRecord]);
-    //     console.log(records);
+    const handlesubmit1 = (e) =>{
+        e.preventDefault();
+        const newRecord = {...employeeDetail, id : new Date().getTime().toString()}
+        console.log(records);
+        setRecords([...records, newRecord]);
+        console.log(records);
        
-    //    setemployeeDetail({employeeName:"",employeeEmail:"",employeeContact:"",employeeid:"",employeeBranch:""});
+       setemployeeDetail({employeeName:"",employeeEmail:"",employeeContact:"",employeeid:"",employeeBranch:""});
 
-    //     const errors = validate();
+        // const errors = validate();
 
-    //     if(errors){
-    //         setemployeeNameError(errors.employeeName);
-    //         setemployeeEmailError(errors.employeeEmail);
-    //         setemployeeContactError(errors.employeeContact); 
-    //         setemployeeidError(errors.employeeid); 
-    //         setemployeeBranchError(errors.employeeBranch);
-    //     }
-    //     else{
-    //         setemployeeNameError("");
-    //         setemployeeEmailError("");
-    //         setemployeeContactError("");
-    //         setemployeeidError("");
-    //         setemployeeBranchError("");
-    //     }
-    // }
+        // if(errors){
+        //     setemployeeNameError(errors.employeeName);
+        //     setemployeeEmailError(errors.employeeEmail);
+        //     setemployeeContactError(errors.employeeContact); 
+        //     setemployeeidError(errors.employeeid); 
+        //     setemployeeBranchError(errors.employeeBranch);
+        // }
+        // else{
+        //     setemployeeNameError(fdmail);
+        //     setemployeeEmailError("");
+        //     setemployeeContactError("");
+        //     setemployeeidError("");
+        //     setemployeeBranchError("");
+        // }
+    }
     const handleQueryChange = (e)=>{
         e.preventDefault();
         searchvalue = e.target.value;
@@ -131,9 +134,10 @@ export default function Updateemployeedetail (){
                           loop={true}
                           backSpeed ={50}
                         />
+                       
                         
         </div>
-        {/* <div className=" p-3 text-[30px] md:text-[50px] text-white">
+        <div className=" p-3 text-[30px] md:text-[50px] text-white">
         <button onClick={fetch}>lalalala</button>
         </div>
         <div className=" p-3 text-[30px] md:text-[50px] text-white">
@@ -146,7 +150,7 @@ export default function Updateemployeedetail (){
             
             ))
         }
-        </div> */}
+        </div>
        
   <div class="absolute right-10 top-10 h-16 ...">
   {/* <form > */}
@@ -168,61 +172,66 @@ export default function Updateemployeedetail (){
         
          
         
-        {/* <form onSubmit={handlesubmit1}>
+        <form onSubmit={handlesubmit1}>
+        
            
             <div className = "m-4">
                 <label className="mr-12 text-white" htmlFor="employeeName" > Name</label>
                 <input onChange={handleInput} className ="border border- black rounded-md" placeholder="Enter the Employeename " autoComplete="off" name="employeeName" value = {employeeDetail.employeeName} id ="employeeName" type="text"/>
-                <div className="text-red-500 text-sm">{employeeNameError}</div>
+                {/* <div className="text-red-500 text-sm">{employeeNameError}</div> */}
             </div>
             <div className = "m-4">
                 <label className = "mr-11 text-white" htmlFor="employeeEmail">E-mail</label>
                 <input onChange={handleInput} className ="border border- black rounded-md " placeholder="Enter the E-mail" autoComplete="off" name="employeeEmail" value = {employeeDetail.employeeEmail} id ="employeeEmail" type="text"/>
-                <div className="text-red-500 text-sm">{employeeEmailError}</div>
+                {/* <div className="text-red-500 text-sm">{employeeEmailError}</div> */}
             </div>
             <div className = "m-4">
                 <label className = "mr-8 text-white"htmlFor="employeeContact">Contact</label>
                 <input onChange={handleInput} className ="border border- black rounded-md " placeholder="Enter the Contact No." autoComplete="off" name="employeeContact" value = {employeeDetail.employeeContact} id ="employeeContact" type="text"/>
-                <div className="text-red-500 text-sm">{employeeContactError}</div>
+                {/* <div className="text-red-500 text-sm">{employeeContactError}</div> */}
             </div>
             <div className = "m-5">
                 <label className = "mr-12 text-white"htmlFor="employeeField">Aadhar</label>
                 <input onChange={handleInput} className ="border border- black rounded-md " placeholder="Aadhar" autoComplete="off" name = "employeeid"value = {employeeDetail.employeeid} id ="employeeid" type="text"/>
-                <div className="text-red-500 text-sm">{employeeidError}</div>
+                {/* <div className="text-red-500 text-sm">{employeeidError}</div> */}
             </div>
             <div className = "m-5">
                 <label className = "mr-12 text-white"htmlFor="employeeBranch">Field</label>
                 <input onChange={handleInput} className ="border border- black rounded-md " placeholder="Enter the Branch " autoComplete="off" name="employeeField" value = {employeeDetail.employeeBranch} id ="employeeBranch" type="text"/>
-                <div className="text-red-500 text-sm">{employeeBranchError}</div>
+                {/* <div className="text-red-500 text-sm">{employeeBranchError}</div> */}
             </div>
             <div className="flex justify center my-5">
                 <button type="submit" className="bg-red-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                     Update
                 </button>
             </div>
-        </form> */}
+        </form>
         <div className="flex flex-col justify-center  items-center bg-black w-full py-[88px] ">
           
 
         </div>
        </div>
     )
-}
-// const Frame = ({email , name , status}) => {
-//     console.log(email + " " + name + " " + status);
-//     return (
-//         <center>
-//             <div className="div">
-                 
-// <p>NAME : {name}</p>
-  
-                 
-// <p>Status : {status}</p>
- 
-                 
-// <p>Email : {email}</p>
-  
-//             </div>
-//         </center>
-//     );
-// }
+    // const Frame = ({email , name , status}) => {
+    //     console.log(email + " " + name + " " + status);
+    //     return (
+    //        fdmail  = {email},
+    //        employeeDetail.employeeName = {fdmail}
+    
+    //         <center>
+                
+    //             <div className="div">
+                     
+    // <p>NAME : {name}</p>
+      
+                     
+    // <p>Status : {status}</p>
+     
+                     
+    // <p>Email : {email}</p>
+      
+    //             </div>
+    //         </center>
+        // );
+    }
+
