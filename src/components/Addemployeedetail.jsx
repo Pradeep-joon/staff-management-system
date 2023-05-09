@@ -57,12 +57,14 @@ export default function Addemployeedetail (){
         const value = e.target.value;
 
         setemployeeDetail({...employeeDetail, [name] : value});
+        
     }
 
     
      
     const handlesubmit = (e) => {
         e.preventDefault();
+        
         
         
         // const newRecord = {...employeeDetail, id : new Date().getTime().toString()}
@@ -103,9 +105,15 @@ export default function Addemployeedetail (){
                 Role: employeeDetail.employeeBranch,
                 CompanyId: currentuserid,
                 Companymail: currentusermail,
-                Status: "Ongoing"
+                Status: "Ongoing",
+                PWI: "",
+                Brate: "",
+                Trate: "",
+                Lrate: "",
+
               });
               console.log("Document written with ID: ", docRef.id);
+              alert(`${employeeDetail.employeeName} has been added Successfully!`);
             //   console.log(currentuserid);
         }
         

@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 export default function Header() {
     const [toggle, setToggle] = useState(false);
-    const [loggedIn, setLoggedIn] = useState(false);
+    let [loggedIn, setLoggedIn] = useState(false);
     // const location = useLocation();
     // if(location.state.logincheck === true){
     // setLoggedIn = location.state.logincheck;
