@@ -52,10 +52,9 @@ export default function Header() {
               <a href = "/about">About</a>
                  
             </li>
-            <li className='hover:text-green-600 focus:outline-text'>
-              <a href = "/contact">Contact</a>
+           
                 
-            </li>
+            
             <li className='hover:text-green-600 focus:outline-text'>
               {/* <a href = "/LLogin">Login</a> */}
               <li className='hover:text-green-600 focus:outline-text'>

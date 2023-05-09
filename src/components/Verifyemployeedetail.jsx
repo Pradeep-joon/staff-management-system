@@ -90,7 +90,7 @@ export default function Verifyemployeedetail() {
       <div className="flex flex-col justify-center  items-center bg-black w-full py-[88px] ">
       {data.map((doc) => (
         <div className=" p-5 text-[10px] md:text-[20px] text-white">
-        <p>Company: {doc.Companymail}</p>
+        <p >Company: {doc.Companymail}</p>
         <p>Status: {doc.Status}</p>
         </div>
       ))}

@@ -235,7 +235,7 @@ export default function Updateemployeedetail() {
         {data.map((doc) => (
           <form className="grid grid-cols-2 gap-25" onSubmit={handleUpdateUser}>
             <div className="m-4">
-              <label className="mr-12 text-white" htmlFor="employeeName">
+              <label className="mr-12  text-blue-600" htmlFor="employeeName">
                 {" "}
                 Name
               </label>
@@ -254,6 +254,58 @@ export default function Updateemployeedetail() {
               {/* <div className="text-red-500 text-sm">{employeeNameError}</div> */}
             </div>
             <div className="m-4">
+              <label className="mr-12 text-white" htmlFor="employeeStatus">
+                Behavioural Rating
+              </label>
+
+              <input
+                onChange={handleInput06}
+                className="border border- black rounded-md "
+                placeholder="O | A | B | C | D "
+                autoComplete="off"
+                name="employeebehrate"
+                defaultValue={doc.Brate}
+                
+                id="employeebehrate"
+                type="text"
+              />
+            </div>
+            <div className="m-4">
+              <label className="mr-10 text-blue-600" htmlFor="employeeField">
+                Aadhar
+              </label>
+
+              <input
+                // onChange={handleInput03}
+                className="border border-blue-800 rounded-md bg-gray-500"
+                placeholder="Aadhar"
+                autoComplete="off"
+                name="employeeid"
+                defaultValue={doc.Aadhar_No}
+                
+                id="employeeid"
+                type="text"
+              />
+              {/* <div className="text-red-500 text-sm">{employeeidError}</div> */}
+            </div>
+            <div className="m-4">
+              <label className="mr-12 text-white" htmlFor="employeeStatus">
+                Leadership Rating
+              </label>
+
+              <input
+                onChange={handleInput08}
+                className="border border- black rounded-md "
+                placeholder="O | A | B | C | D "
+                autoComplete="off"
+                name="employeeleadrate"
+                defaultValue={doc.Lrate}
+                
+                id="employeeleadrate"
+                type="text"
+              />
+            </div>
+            <div className="m-4">
               <label className="mr-11 text-white" htmlFor="employeeEmail">
                 E-mail
               </label>
@@ -270,6 +322,23 @@ export default function Updateemployeedetail() {
                 type="text"
               />
               {/* <div className="text-red-500 text-sm">{employeeEmailError}</div> */}
+            </div>
+            <div className="m-4 ">
+              <label className="mr-12  text-white" htmlFor="employeeStatus">
+                Technical Rating
+              </label>
+
+              <input
+                onChange={handleInput07}
+                className="border border- black rounded-md "
+                placeholder="O | A | B | C | D "
+                autoComplete="off"
+                name="employeetechrate"
+                defaultValue={doc.Trate}
+                
+                id="employeetechrate"
+                type="text"
+              />
             </div>
             <div className="m-4">
               <label className="mr-8 text-white" htmlFor="employeeContact">
@@ -291,26 +360,26 @@ export default function Updateemployeedetail() {
                 {employeeContactError}
               </div> */}
             </div>
-            <div className="m-5">
-              <label className="mr-12 text-blue-600" htmlFor="employeeField">
-                Aadhar
+            <div className="m-4">
+              <label className="mr-12 text-white" htmlFor="employeeStatus">
+                Project worked In
               </label>
 
               <input
-                // onChange={handleInput03}
-                className="border border-blue-800 rounded-md bg-gray-500"
-                placeholder="Aadhar"
+                onChange={handleInput05}
+                className="border border- black rounded-md "
+                placeholder="No. of projects "
                 autoComplete="off"
-                name="employeeid"
-                defaultValue={doc.Aadhar_No}
-                
-                id="employeeid"
+                name="employeenofproject"
+                defaultValue={doc.PWI}
+                id="employeenofproject"
                 type="text"
               />
-              {/* <div className="text-red-500 text-sm">{employeeidError}</div> */}
             </div>
-            <div className="m-5">
-              <label className="mr-12 text-white" htmlFor="employeeStatus">
+            
+           
+            <div className="m-4">
+              <label className="mr-10 text-white" htmlFor="employeeStatus">
                 Status
               </label>
 
@@ -327,76 +396,14 @@ export default function Updateemployeedetail() {
               />
               {/* <div className="text-red-500 text-sm">{employeeStatusError}</div> */}
             </div>
-            <div className="m-5">
+            
+            
+           
+           
+            
+            <div className="m-4">
               <label className="mr-12 text-white" htmlFor="employeeStatus">
-                Project worked in
-              </label>
-
-              <input
-                onChange={handleInput05}
-                className="border border- black rounded-md "
-                placeholder="No. of projects "
-                autoComplete="off"
-                name="employeenofproject"
-                defaultValue={doc.PWI}
-                id="employeenofproject"
-                type="text"
-              />
-            </div>
-            <div className="m-5">
-              <label className="mr-12 text-white" htmlFor="employeeStatus">
-                Behavioural Rating
-              </label>
-
-              <input
-                onChange={handleInput06}
-                className="border border- black rounded-md "
-                placeholder="O | A | B | C | D "
-                autoComplete="off"
-                name="employeebehrate"
-                defaultValue={doc.Brate}
-                
-                id="employeebehrate"
-                type="text"
-              />
-            </div>
-            <div className="m-5">
-              <label className="mr-12 text-white" htmlFor="employeeStatus">
-                Technical Rating
-              </label>
-
-              <input
-                onChange={handleInput07}
-                className="border border- black rounded-md "
-                placeholder="O | A | B | C | D "
-                autoComplete="off"
-                name="employeetechrate"
-                defaultValue={doc.Trate}
-                
-                id="employeetechrate"
-                type="text"
-              />
-            </div>
-            <div className="m-5">
-              <label className="mr-12 text-white" htmlFor="employeeStatus">
-                Leadership Rating
-              </label>
-
-              <input
-                onChange={handleInput08}
-                className="border border- black rounded-md "
-                placeholder="O | A | B | C | D "
-                autoComplete="off"
-                name="employeeleadrate"
-                defaultValue={doc.Lrate}
-                
-                id="employeeleadrate"
-                type="text"
-              />
-            </div>
-            <div className="m-5">
-              <label className="mr-12 text-white" htmlFor="employeeStatus">
-                Role
+                Role in Company
               </label>
 
               <input
@@ -411,7 +418,7 @@ export default function Updateemployeedetail() {
                 type="text"
               />
             </div>
-            <div className="flex justify center my-5">
+            <div className="flex justify center mx-3 my-5">
               <button
                 type="submit"
                 className="bg-red-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
